@@ -10,6 +10,7 @@ import {
     useState,
 } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { authClient } from "@/lib/auth-client"
 import type { Role } from "@/types/auth"
 
@@ -145,10 +146,13 @@ export function SessionProvider({
                 timestamp: Date.now(),
             } satisfies AuthSyncMessage)
 
+            toast.success("Signed out successfully")
+
             router.push("/")
             router.refresh()
         } catch (error) {
             console.error("Sign out error:", error)
+            toast.error("Failed to sign out. Please try again.")
             throw error
         }
     }, [router])
