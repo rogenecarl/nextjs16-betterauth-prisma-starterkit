@@ -11,9 +11,11 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
-import { Loader2, Mail, Lock } from "lucide-react" 
+import { Loader2, Mail, Lock } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
+import { getRoleRedirect } from "@/config/auth"
+import type { Role } from "@/types/auth"
 
 export function LoginInForm() {
     const [isLoading, setIsLoading] = useState(false)
@@ -32,7 +34,7 @@ export function LoginInForm() {
         const toastId = toast.loading("Signing in...");
 
         try {
-            const { error } = await authClient.signIn.email({
+            const { error, data } = await authClient.signIn.email({
                 email: values.email,
                 password: values.password,
             });
@@ -42,20 +44,16 @@ export function LoginInForm() {
                 return;
             }
 
-            const { data: session } = await authClient.getSession();
-
-            if (session?.user) {
+            if (data?.user) {
                 toast.success("Signed in successfully", { id: toastId });
 
-                const user = session.user as { role?: string };
-                const role = user.role || "USER";
-                const redirectMap: Record<string, string> = {
-                    ADMIN: "/admin/dashboard",
-                    PROVIDER: "/provider/dashboard",
-                    USER: "/browse-services",
-                };
+                // Get role from the signed-in user data
+                const user = data.user as { role?: Role };
+                const redirectPath = getRoleRedirect(user.role);
 
-                router.push(redirectMap[role] || "/browse-services");
+                // Refresh server components and navigate
+                router.refresh();
+                router.push(redirectPath);
             }
         } catch (error) {
             toast.error("An unexpected error occurred", { id: toastId });
@@ -110,7 +108,7 @@ export function LoginInForm() {
                                     <div className="flex items-center justify-between">
                                         <FormLabel className="text-slate-700 dark:text-slate-300">Password</FormLabel>
                                         <Link
-                                            href="/auth/forgot-password"
+                                            href="/forgot-password"
                                             className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
                                         >
                                             Forgot password?
@@ -186,7 +184,7 @@ export function LoginInForm() {
 
             <div className="text-center text-sm text-slate-600 dark:text-slate-400">
                 Don&apos;t have an account?{" "}
-                <Link href="/auth/choose-role" className="font-semibold text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-all">
+                <Link href="/choose-role" className="font-semibold text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-all">
                     Sign up
                 </Link>
             </div>

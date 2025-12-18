@@ -5,9 +5,12 @@ import type { z } from "zod";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import prisma from "@/lib/db";
 import type { ActionResponse } from "@/types/api";
 import { checkRateLimit, getClientIP, RATE_LIMITS } from "@/lib/auth-rate-limit";
+import { getRoleRedirect } from "@/config/auth";
+import type { Role } from "@/types/auth";
 
 export async function signIn(
     values: z.infer<typeof SignInSchema>
@@ -69,13 +72,7 @@ export async function signIn(
         }
 
         // Role-based redirection
-        const redirectMap = {
-            ADMIN: "/admin/dashboard",
-            PROVIDER: "/provider/dashboard",
-            USER: "/",
-        } as const;
-
-        const redirectPath = redirectMap[userWithRole.role as keyof typeof redirectMap] || "/";
+        const redirectPath = getRoleRedirect(userWithRole.role as Role);
         redirect(redirectPath);
     } catch (error) {
         // Let NEXT_REDIRECT errors bubble up for navigation

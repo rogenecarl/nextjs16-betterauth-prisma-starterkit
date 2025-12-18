@@ -49,10 +49,10 @@ Components in `src/components/auth/`:
 - `<AdminOnly>`, `<ProviderOnly>`, `<UserOnly>` - Role-specific wrappers
 
 ### User Roles
-Three roles defined in Prisma schema: `USER`, `ADMIN`, `PROVIDER`. Role-based redirects after login:
+Three roles defined in Prisma schema: `USER`, `ADMIN`, `PROVIDER`. Role-based redirects after login (configured in `src/config/auth.ts`):
 - ADMIN → `/admin/dashboard`
 - PROVIDER → `/provider/dashboard`
-- USER → `/browse-services`
+- USER → `/dashboard`
 
 ### Project Structure
 ```
@@ -61,10 +61,13 @@ src/
 ├── app/
 │   ├── (auth)/       # Auth pages (login, register, register-provider)
 │   ├── (landing)/    # Landing page
+│   ├── (user)/       # User dashboard (protected)
 │   └── api/auth/     # Better Auth API routes
 ├── components/
 │   ├── auth/         # Auth form + guard components
 │   └── ui/           # shadcn/ui components
+├── config/
+│   └── auth.ts       # Centralized auth config (role redirects, routes)
 ├── context/          # React Query provider
 ├── hooks/            # Custom hooks (useAuth, useRequireAuth)
 ├── lib/

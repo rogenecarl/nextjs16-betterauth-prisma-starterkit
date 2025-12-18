@@ -13,11 +13,12 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { signUpProvider } from "@/actions/auth/auth-actions"
-import { Command, Loader2, User, Mail, Lock, Stethoscope } from "lucide-react"
+import { Loader2, User, Mail, Lock } from "lucide-react"
+import { ROLE_REDIRECTS } from "@/config/auth"
 
 export function RegisterProviderForm() {
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter();
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof SignUpProviderSchema>>({
         resolver: zodResolver(SignUpProviderSchema),
@@ -30,24 +31,25 @@ export function RegisterProviderForm() {
     })
 
     async function onSubmit(values: z.infer<typeof SignUpProviderSchema>) {
-        setIsLoading(true);
-        const toastId = toast.loading("Creating provider account...");
+        setIsLoading(true)
+        const toastId = toast.loading("Creating provider account...")
 
         try {
-            const result = await signUpProvider(values);
+            const result = await signUpProvider(values)
 
             if (result.success) {
-                toast.success("Account created! Please verify your email.", { id: toastId });
-                form.reset();
-                router.push(`/auth/verify-email?email=${encodeURIComponent(values.email)}`);
+                toast.success("Account created successfully!", { id: toastId })
+                // Better Auth auto-logs in on signup, refresh and redirect to provider dashboard
+                router.refresh()
+                router.push(ROLE_REDIRECTS.PROVIDER)
             } else {
-                toast.error(result.error, { id: toastId });
+                toast.error(result.error, { id: toastId })
             }
         } catch (error) {
-            toast.error("An unexpected error occurred", { id: toastId });
-            console.error("Sign up error:", error);
+            toast.error("An unexpected error occurred", { id: toastId })
+            console.error("Sign up error:", error)
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
     }
 
@@ -206,7 +208,7 @@ export function RegisterProviderForm() {
 
             <div className="text-center text-sm text-slate-600 dark:text-slate-400">
                 Already have an account?{" "}
-                <Link href="/auth/sign-in" className="font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-500 underline-offset-4 hover:underline transition-all">
+                <Link href="/login" className="font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-500 underline-offset-4 hover:underline transition-all">
                     Sign in
                 </Link>
             </div>

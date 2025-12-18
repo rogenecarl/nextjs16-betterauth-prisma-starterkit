@@ -14,10 +14,11 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { signUpUser } from "@/actions/auth/auth-actions"
 import { Loader2, User, Mail, Lock } from "lucide-react"
+import { ROLE_REDIRECTS } from "@/config/auth"
 
 export function RegisterUserForm() {
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter();
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof SignUpUserSchema>>({
         resolver: zodResolver(SignUpUserSchema),
@@ -30,24 +31,25 @@ export function RegisterUserForm() {
     })
 
     async function onSubmit(values: z.infer<typeof SignUpUserSchema>) {
-        setIsLoading(true);
-        const toastId = toast.loading("Creating account...");
+        setIsLoading(true)
+        const toastId = toast.loading("Creating account...")
 
         try {
-            const result = await signUpUser(values);
+            const result = await signUpUser(values)
 
             if (result.success) {
-                toast.success("Account created! Please verify your email.", { id: toastId });
-                form.reset();
-                router.push(`/auth/verify-email?email=${encodeURIComponent(values.email)}`);
+                toast.success("Account created successfully!", { id: toastId })
+                // Better Auth auto-logs in on signup, refresh and redirect to user dashboard
+                router.refresh()
+                router.push(ROLE_REDIRECTS.USER)
             } else {
-                toast.error(result.error, { id: toastId });
+                toast.error(result.error, { id: toastId })
             }
         } catch (error) {
-            toast.error("An unexpected error occurred", { id: toastId });
-            console.error("Sign up error:", error);
+            toast.error("An unexpected error occurred", { id: toastId })
+            console.error("Sign up error:", error)
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
     }
 
@@ -206,7 +208,7 @@ export function RegisterUserForm() {
 
             <div className="text-center text-sm text-slate-600 dark:text-slate-400">
                 Already have an account?{" "}
-                <Link href="/auth/sign-in" className="font-semibold text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-all">
+                <Link href="/login" className="font-semibold text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-all">
                     Sign in
                 </Link>
             </div>

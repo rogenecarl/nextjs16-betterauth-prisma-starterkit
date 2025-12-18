@@ -2,6 +2,7 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "./auth"
 import type { Role } from "@/types/auth"
+import { getRoleRedirect } from "@/config/auth"
 
 /**
  * Get the current session on the server.
@@ -79,22 +80,6 @@ export async function requireRole(role: Role, options?: {
     }
 
     return session
-}
-
-/**
- * Get the default redirect path for a role
- */
-function getRoleRedirect(role: Role | undefined): string {
-    switch (role) {
-        case "ADMIN":
-            return "/admin/dashboard"
-        case "PROVIDER":
-            return "/provider/dashboard"
-        case "USER":
-            return "/browse-services"
-        default:
-            return "/login"
-    }
 }
 
 /**

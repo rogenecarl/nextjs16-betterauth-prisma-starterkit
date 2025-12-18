@@ -48,6 +48,7 @@ model Session {
 
   @@unique([token])
   @@index([userId])
+  @@index([expiresAt]) // For cleanup queries
   @@map("session")
 }
 
@@ -80,5 +81,6 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@index([identifier])
+  @@index([expiresAt]) // For cleanup queries
   @@map("verification")
 }

@@ -12,7 +12,7 @@ export default function SignupUserPage() {
 
             {/* Right Column: Visual/Marketing */}
             <div className="relative hidden lg:flex h-full w-full flex-col justify-between overflow-hidden bg-slate-950 p-12 text-white">
-                
+
                 {/* Background Effects */}
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-slate-950" />
@@ -20,27 +20,27 @@ export default function SignupUserPage() {
                     <div className="absolute -top-[20%] -right-[10%] h-[700px] w-[700px] rounded-full bg-emerald-600/20 blur-[100px]" />
                     <div className="absolute bottom-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-teal-600/10 blur-[100px]" />
                     <div className="absolute -bottom-[10%] right-[10%] h-[400px] w-[400px] rounded-full bg-emerald-900/40 blur-[80px]" />
-                    
+
                     {/* Technical Grid Pattern */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px]" />
-                    
+
                     {/* Vignette */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/20" />
                 </div>
 
                 {/* Branding */}
                 <div className="relative z-10 flex items-center gap-3 text-lg font-medium tracking-tight animate-in fade-in slide-in-from-top-4 duration-700">
-                    <span className="font-bold text-xl">Himsog</span>
+                    <span className="font-bold text-xl">StarterKit</span>
                 </div>
 
                 {/* Onboarding Steps Showcase */}
                 <div className="relative z-10 my-auto max-w-[500px]">
                      <div className="mb-10 space-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                            Discover healthcare providers on the map.
+                            Start building in minutes.
                         </h2>
                         <p className="text-lg text-slate-400">
-                           Create your account to explore nearby clinics, book appointments, and connect with healthcare providers.
+                           Create your account to access the full starter kit, explore components, and start your next project.
                         </p>
                     </div>
 
@@ -52,7 +52,7 @@ export default function SignupUserPage() {
                             </div>
                             <div className="pt-1">
                                 <h3 className="text-lg font-semibold text-white">Create Your Account</h3>
-                                <p className="text-sm text-slate-400">Sign up quickly to access the Himsog healthcare network.</p>
+                                <p className="text-sm text-slate-400">Sign up to access your personal dashboard and project management.</p>
                             </div>
                         </div>
 
@@ -62,8 +62,8 @@ export default function SignupUserPage() {
                                 <span className="text-sm font-bold">2</span>
                             </div>
                             <div className="pt-1">
-                                <h3 className="text-lg font-semibold text-white">Explore the Map</h3>
-                                <p className="text-sm text-slate-400">Find verified providers, clinics, and services near your location.</p>
+                                <h3 className="text-lg font-semibold text-white">Explore Components</h3>
+                                <p className="text-sm text-slate-400">Browse shadcn/ui components, templates, and code examples.</p>
                             </div>
                         </div>
 
@@ -73,8 +73,8 @@ export default function SignupUserPage() {
                                 <span className="text-sm font-bold">3</span>
                             </div>
                             <div className="pt-1">
-                                <h3 className="text-lg font-semibold text-white">Book & Connect</h3>
-                                <p className="text-sm text-slate-400">Schedule appointments and message providers directly.</p>
+                                <h3 className="text-lg font-semibold text-white">Build & Deploy</h3>
+                                <p className="text-sm text-slate-400">Create your app and deploy to Vercel with one click.</p>
                             </div>
                         </div>
                     </div>
@@ -82,8 +82,8 @@ export default function SignupUserPage() {
 
                 {/* Footer Metadata */}
                  <div className="relative z-10 flex justify-between text-xs text-slate-500">
-                   <p>© 2024 Himsog Inc.</p>
-                   <p>Join <span className="text-white">10,000+</span> users today</p>
+                   <p>© 2024 StarterKit. MIT License.</p>
+                   <p>Join <span className="text-white">5,000+</span> developers today</p>
                 </div>
             </div>
         </div>

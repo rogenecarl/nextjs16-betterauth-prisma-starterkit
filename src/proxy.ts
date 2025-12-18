@@ -1,6 +1,17 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { getSessionCookie } from "better-auth/cookies"
+import { getSessionCookie, getCookieCache } from "better-auth/cookies"
+import { AUTH_ROUTES, PROTECTED_ROUTES, ROLE_REDIRECTS } from "@/config/auth"
+
+/**
+ * Role-based route prefixes.
+ * Maps route prefixes to required roles.
+ */
+const ROLE_ROUTE_MAP: Record<string, string> = {
+    "/admin": "ADMIN",
+    "/provider": "PROVIDER",
+    "/dashboard": "USER",
+}
 
 /**
  * Proxy for optimistic route protection (Next.js 16+).
@@ -12,23 +23,6 @@ import { getSessionCookie } from "better-auth/cookies"
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/proxy
  * @see https://www.better-auth.com/docs/integrations/next
  */
-
-// Routes that require authentication (optimistic check)
-const protectedRoutes = [
-    "/admin",
-    "/provider",
-    "/dashboard",
-    "/browse-services",
-    "/settings",
-    "/profile",
-]
-
-// Routes that should redirect authenticated users
-const authRoutes = [
-    "/login",
-    "/register",
-    "/register-provider",
-]
 
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl
@@ -47,7 +41,7 @@ export async function proxy(request: NextRequest) {
     const isAuthenticated = !!sessionCookie
 
     // Check if accessing protected route without session cookie
-    const isProtectedRoute = protectedRoutes.some((route) =>
+    const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
         pathname.startsWith(route)
     )
 
@@ -57,14 +51,48 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(loginUrl)
     }
 
-    // Redirect authenticated users away from auth pages
-    const isAuthRoute = authRoutes.some((route) =>
+    // Role-based route protection (optimistic - for UX only)
+    if (isAuthenticated) {
+        // Try to get cached session with role
+        const cachedSession = await getCookieCache(request)
+        const userRole = cachedSession?.user?.role as string | undefined
+
+        if (userRole) {
+            // Check if user is accessing a role-specific route
+            for (const [routePrefix, requiredRole] of Object.entries(ROLE_ROUTE_MAP)) {
+                if (pathname.startsWith(routePrefix) && userRole !== requiredRole) {
+                    // Redirect to user's correct dashboard
+                    const correctDashboard = ROLE_REDIRECTS[userRole as keyof typeof ROLE_REDIRECTS]
+                    if (correctDashboard) {
+                        return NextResponse.redirect(new URL(correctDashboard, request.url))
+                    }
+                }
+            }
+        }
+
+        // Redirect authenticated users away from auth pages
+        const isAuthRoute = AUTH_ROUTES.some((route) =>
+            pathname.startsWith(route)
+        )
+
+        if (isAuthRoute) {
+            // Use role from cached session for proper redirect
+            const redirectPath = userRole
+                ? ROLE_REDIRECTS[userRole as keyof typeof ROLE_REDIRECTS]
+                : ROLE_REDIRECTS.USER
+
+            return NextResponse.redirect(new URL(redirectPath || "/dashboard", request.url))
+        }
+    }
+
+    // Redirect authenticated users away from auth pages (fallback without cache)
+    const isAuthRoute = AUTH_ROUTES.some((route) =>
         pathname.startsWith(route)
     )
 
     if (isAuthRoute && isAuthenticated) {
-        // Redirect to home - actual role-based redirect happens after login
-        return NextResponse.redirect(new URL("/", request.url))
+        // No cached session available, redirect to default
+        return NextResponse.redirect(new URL(ROLE_REDIRECTS.USER, request.url))
     }
 
     return NextResponse.next()

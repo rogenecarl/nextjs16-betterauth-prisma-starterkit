@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "./use-auth"
 import type { Role } from "@/types/auth"
+import { getRoleRedirect } from "@/config/auth"
 
 type UseRequireAuthOptions = {
     /** Required role (optional) */
@@ -57,20 +58,4 @@ export function useRequireAuth(options: UseRequireAuthOptions = {}) {
     }, [isLoading, isAuthenticated, requiredRole, userRole, router, redirectTo, roleRedirectTo])
 
     return auth
-}
-
-/**
- * Get the default redirect path for a role
- */
-function getRoleRedirect(role: Role | undefined): string {
-    switch (role) {
-        case "ADMIN":
-            return "/admin/dashboard"
-        case "PROVIDER":
-            return "/provider/dashboard"
-        case "USER":
-            return "/browse-services"
-        default:
-            return "/login"
-    }
 }
