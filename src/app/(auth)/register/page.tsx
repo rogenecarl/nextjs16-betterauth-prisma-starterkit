@@ -3,15 +3,8 @@ import { RegisterUserForm } from "@/components/auth/register-user-form"
 export default function SignupUserPage() {
     return (
         <div className="min-h-screen w-full lg:grid lg:grid-cols-2">
-            {/* Left Column: Form */}
-            <div className="flex items-center justify-center p-8 lg:p-12 bg-white dark:bg-[#0B0F19]">
-                <div className="w-full max-w-[450px]">
-                    <RegisterUserForm />
-                </div>
-            </div>
-
-            {/* Right Column: Visual/Marketing */}
-            <div className="relative hidden lg:flex h-full w-full flex-col justify-between overflow-hidden bg-slate-950 p-12 text-white">
+            {/* Left Column: Visual/Marketing*/}
+            <div className="relative hidden lg:flex min-h-screen h-full w-full flex-col items-center justify-between overflow-hidden bg-slate-950 p-12 text-white">
 
                 {/* Background Effects */}
                 <div className="absolute inset-0 z-0">
@@ -29,18 +22,18 @@ export default function SignupUserPage() {
                 </div>
 
                 {/* Branding */}
-                <div className="relative z-10 flex items-center gap-3 text-lg font-medium tracking-tight animate-in fade-in slide-in-from-top-4 duration-700">
+                <div className="relative z-10 w-full flex items-center gap-3 text-lg font-medium tracking-tight animate-in fade-in slide-in-from-top-4 duration-700">
                     <span className="font-bold text-xl">StarterKit</span>
                 </div>
 
                 {/* Onboarding Steps Showcase */}
                 <div className="relative z-10 my-auto max-w-[500px]">
-                     <div className="mb-10 space-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+                    <div className="mb-10 space-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                             Start building in minutes.
                         </h2>
                         <p className="text-lg text-slate-400">
-                           Create your account to access the full starter kit, explore components, and start your next project.
+                            Create your account to access the full starter kit, explore components, and start your next project.
                         </p>
                     </div>
 
@@ -56,7 +49,7 @@ export default function SignupUserPage() {
                             </div>
                         </div>
 
-                         {/* Step 2 */}
+                        {/* Step 2 */}
                         <div className="relative flex items-start gap-4 animate-in fade-in slide-in-from-right-8 duration-700 delay-300">
                             <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-emerald-400 ring-4 ring-slate-950 border border-slate-700">
                                 <span className="text-sm font-bold">2</span>
@@ -67,7 +60,7 @@ export default function SignupUserPage() {
                             </div>
                         </div>
 
-                         {/* Step 3 */}
+                        {/* Step 3 */}
                         <div className="relative flex items-start gap-4 animate-in fade-in slide-in-from-right-8 duration-700 delay-400">
                             <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-400 ring-4 ring-slate-950 border border-slate-700">
                                 <span className="text-sm font-bold">3</span>
@@ -81,9 +74,16 @@ export default function SignupUserPage() {
                 </div>
 
                 {/* Footer Metadata */}
-                 <div className="relative z-10 flex justify-between text-xs text-slate-500">
-                   <p>© 2024 StarterKit. MIT License.</p>
-                   <p>Join <span className="text-white">5,000+</span> developers today</p>
+                <div className="relative z-10 w-full flex justify-between text-xs text-slate-500">
+                    <p>© 2024 StarterKit. MIT License.</p>
+                    <p>Join <span className="text-white">5,000+</span> developers today</p>
+                </div>
+            </div>
+
+            {/* Right Column: Form */}
+            <div className="min-h-screen flex items-center justify-center p-8 lg:p-12 bg-white dark:bg-[#0B0F19]">
+                <div className="w-full max-w-[450px]">
+                    <RegisterUserForm />
                 </div>
             </div>
         </div>

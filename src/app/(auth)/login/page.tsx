@@ -3,15 +3,8 @@ import { LoginInForm } from "@/components/auth/login-form"
 export default function LoginPage() {
     return (
         <div className="min-h-screen w-full lg:grid lg:grid-cols-2">
-            {/* Left Column: Form */}
-            <div className="flex items-center justify-center p-8 lg:p-12 bg-white dark:bg-[#0B0F19]">
-                <div className="w-full max-w-[450px]">
-                    <LoginInForm />
-                </div>
-            </div>
-
-            {/* Right Column: Visual/Marketing */}
-            <div className="relative hidden lg:flex h-full w-full flex-col justify-between overflow-hidden bg-slate-950 p-12 text-white">
+            {/* Left Column: Visual/Marketing */}
+            <div className="relative hidden lg:flex min-h-screen h-full w-full flex-col items-center justify-between overflow-hidden bg-slate-950 p-12 text-white">
 
                 {/* Background Effects */}
                 <div className="absolute inset-0 z-0">
@@ -29,7 +22,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Branding */}
-                <div className="relative z-10 flex items-center gap-3 text-lg font-medium tracking-tight animate-in fade-in slide-in-from-top-4 duration-700">
+                <div className="relative z-10 w-full flex items-center gap-3 text-lg font-medium tracking-tight animate-in fade-in slide-in-from-top-4 duration-700">
                     <span className="font-bold text-xl">StarterKit</span>
                 </div>
 
@@ -50,7 +43,7 @@ export default function LoginPage() {
                             <div className="flex items-center gap-4">
                                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     </svg>
                                 </div>
                                 <div>
@@ -65,12 +58,12 @@ export default function LoginPage() {
                             <div className="flex items-center gap-4">
                                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
-                                        <polyline points="7.5 19.79 7.5 14.6 3 12"/>
-                                        <polyline points="21 12 16.5 14.6 16.5 19.79"/>
-                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                        <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
+                                        <polyline points="7.5 19.79 7.5 14.6 3 12" />
+                                        <polyline points="21 12 16.5 14.6 16.5 19.79" />
+                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                                        <line x1="12" y1="22.08" x2="12" y2="12" />
                                     </svg>
                                 </div>
                                 <div>
@@ -80,12 +73,12 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                         {/* Feature 3 */}
+                        {/* Feature 3 */}
                         <div className="group relative overflow-hidden rounded-2xl bg-white/5 p-4 hover:bg-white/10 transition-colors border border-white/10 animate-in fade-in slide-in-from-right-8 duration-700 delay-400">
-                             <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4">
                                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                                     </svg>
                                 </div>
                                 <div>
@@ -98,9 +91,16 @@ export default function LoginPage() {
                 </div>
 
                 {/* Footer Metadata */}
-                <div className="relative z-10 flex justify-between text-xs text-slate-500">
-                   <p>© 2024 StarterKit. MIT License.</p>
-                   <p>Next.js 16 • React 19 • TypeScript</p>
+                <div className="relative z-10 w-full flex justify-between text-xs text-slate-500">
+                    <p>© 2024 StarterKit. MIT License.</p>
+                    <p>Next.js 16 • React 19 • TypeScript</p>
+                </div>
+            </div>
+
+            {/* Right Column: Form*/}
+            <div className="min-h-screen flex items-center justify-center p-8 lg:p-12 bg-white dark:bg-[#0B0F19]">
+                <div className="w-full max-w-[450px]">
+                    <LoginInForm />
                 </div>
             </div>
         </div>
