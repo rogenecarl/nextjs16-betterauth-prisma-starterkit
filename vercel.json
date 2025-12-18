@@ -5,9 +5,6 @@
   "functions": {
     "app/**/*": {
       "maxDuration": 10
-    },
-    "api/**/*": {
-      "maxDuration": 10
     }
   },
   "crons": []
