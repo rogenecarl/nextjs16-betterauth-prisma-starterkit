@@ -1,5 +1,5 @@
 import type { auth } from "@/lib/auth"
-import type { UserRole } from "@/lib/generated/prisma"
+import type { UserRole } from "@/lib/generated/prisma/client"
 
 // Infer session type from Better Auth
 export type Session = typeof auth.$Infer.Session
